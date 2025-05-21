@@ -7,16 +7,16 @@ import AboutPage from "./../pages/AboutPage";
 import LoginPage from "./../pages/LoginPage";
 import RegisterPage from "./../pages/RegisterPage";
 import ErrorPage from "../pages/ErrorPage";
-
+import ROUTES from "./routesDict";
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<CardsPage />} />
-      <Route path="/favorite" element={<FavoriteCardsPage />} />
-      <Route path="/my-cards" element={<MyCardsPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path={ROUTES.root} element={<CardsPage />} />
+      <Route path={ROUTES.favorite} element={<FavoriteCardsPage />} />
+      <Route path={ROUTES.myCards} element={<MyCardsPage />} />
+      <Route path={ROUTES.about} element={<AboutPage />} />
+      <Route path={ROUTES.login} element={<LoginPage />} />
+      <Route path={ROUTES.register} element={<RegisterPage />} />
       <Route path="/*" element={<ErrorPage />} />
     </Routes>
   );
