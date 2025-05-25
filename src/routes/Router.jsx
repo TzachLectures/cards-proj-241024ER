@@ -8,6 +8,7 @@ import LoginPage from "./../pages/LoginPage";
 import RegisterPage from "./../pages/RegisterPage";
 import ErrorPage from "../pages/ErrorPage";
 import ROUTES from "./routesDict";
+import SandboxPage from "../pages/SandboxPage";
 function Router() {
   return (
     <Routes>
@@ -17,6 +18,8 @@ function Router() {
       <Route path={ROUTES.about} element={<AboutPage />} />
       <Route path={ROUTES.login} element={<LoginPage />} />
       <Route path={ROUTES.register} element={<RegisterPage />} />
+      <Route path={ROUTES.sandbox} element={<SandboxPage />} />
+
       <Route path="/*" element={<ErrorPage />} />
     </Routes>
   );
