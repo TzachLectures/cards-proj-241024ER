@@ -8,6 +8,7 @@ function Header() {
         <HeaderLink to={ROUTES.root} label={"Home"} />
         <HeaderLink to={ROUTES.about} label={"About"} />
         <HeaderLink to={ROUTES.favorite} label={"Favorite cards"} />
+        <HeaderLink to={ROUTES.register} label={"Register"} />
         <HeaderLink to={ROUTES.sandbox} label={"Sand box"} />
       </Toolbar>
     </AppBar>
