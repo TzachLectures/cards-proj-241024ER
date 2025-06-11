@@ -3,6 +3,7 @@ import { Grid, FormControlLabel, Checkbox, TextField } from "@mui/material";
 import Joi from "joi";
 import useForm from "../../hooks/useForm";
 import Form from "../../components/Form";
+import axios from "axios";
 const initialSignupForm = {
   first: "",
   middle: "",
@@ -40,7 +41,7 @@ const signupSchema = {
     )
     .rule({
       message:
-        'user "password" must be at least nine characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-',
+        'user "password" must be at least seven characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-',
     })
     .required(),
   url: Joi.string()
@@ -59,10 +60,51 @@ const signupSchema = {
   zip: Joi.number(),
   isBusiness: Joi.boolean().required(),
 };
+
+const handleSignup = async (userDetails) => {
+  const userDetailsForServer = {
+    name: {
+      first: userDetails.first,
+      middle: userDetails.middle,
+      last: userDetails.last,
+    },
+    phone: userDetails.phone,
+    email: userDetails.email,
+    password: userDetails.password,
+    image: {
+      url: userDetails.url,
+      alt: userDetails.alt,
+    },
+    address: {
+      state: userDetails.state,
+      country: userDetails.country,
+      city: userDetails.city,
+      street: userDetails.street,
+      houseNumber: userDetails.houseNumber,
+      zip: userDetails.zip,
+    },
+    isBusiness: true,
+  };
+
+  try {
+    const response = await axios.post(
+      "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users",
+      userDetailsForServer
+    );
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      alert(error.response.data);
+    }
+  }
+};
+
 function RegisterForm() {
   const { formDetails, errors, handleChange, handleSubmit } = useForm(
     initialSignupForm,
-    signupSchema
+    signupSchema,
+    handleSignup
   );
 
   return (
