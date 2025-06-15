@@ -1,10 +1,11 @@
 import React from "react";
 import CountryList from "../sandbox/CountryList";
+import Parent from "../sandbox/providersExample/Parent";
 
 function SandboxPage() {
   return (
     <div>
-      <CountryList />
+      <Parent />
     </div>
   );
 }

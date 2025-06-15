@@ -3,6 +3,7 @@ import useCountries from "./hooks/useCountries";
 
 function CountryList() {
   const { filteredCountries, handleChange } = useCountries();
+  console.log(filteredCountries);
   return (
     <div>
       <TextField onChange={handleChange} />

@@ -5,10 +5,18 @@ export default function useCountries() {
   const [filteredCountries, setFilteredCountries] = useState([]);
 
   const getCountries = async () => {
-    const res = await fetch("https://restcountries.com/v3.1/all");
-    const jsonCountries = await res.json();
-    setCountries(jsonCountries);
-    setFilteredCountries(jsonCountries);
+    try {
+      const res = await fetch(
+        "https://restcountries.com/v3.1/all?fields=name,flags"
+      );
+      const jsonCountries = await res.json();
+      if (Array.isArray(jsonCountries)) {
+        setCountries(jsonCountries);
+        setFilteredCountries(jsonCountries);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (event) => {
