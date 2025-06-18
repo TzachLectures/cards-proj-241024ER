@@ -5,21 +5,31 @@ import useForm from "../../hooks/useForm";
 import axios from "axios";
 import loginSchema from "../models/loginSchema";
 import initialLoginForm from "../helpers/initialForms/initialLoginForm";
-
-const handleLogin = async (user) => {
-  try {
-    const response = await axios.post(
-      "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/login",
-      user
-    );
-    console.log(response);
-  } catch (error) {
-    console.log(error);
-    alert("The login failed");
-  }
-};
+import {
+  getUser,
+  setTokenInLocalStorage,
+} from "../services/localStorageService";
+import { useCurrentUser } from "../providers/UserProvider";
 
 function LoginForm() {
+  const { setToken, setUser } = useCurrentUser();
+
+  const handleLogin = async (user) => {
+    try {
+      const response = await axios.post(
+        "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/login",
+        user
+      );
+      console.log(response);
+      setTokenInLocalStorage(response.data);
+      setToken(response.data);
+      setUser(getUser());
+    } catch (error) {
+      console.log(error);
+      alert("The login failed");
+    }
+  };
+
   const { formDetails, errors, handleChange, handleSubmit } = useForm(
     initialLoginForm,
     loginSchema,
