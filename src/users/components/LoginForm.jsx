@@ -10,9 +10,11 @@ import {
   setTokenInLocalStorage,
 } from "../services/localStorageService";
 import { useCurrentUser } from "../providers/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const { setToken, setUser } = useCurrentUser();
+  const navigate = useNavigate();
 
   const handleLogin = async (user) => {
     try {
@@ -24,6 +26,7 @@ function LoginForm() {
       setTokenInLocalStorage(response.data);
       setToken(response.data);
       setUser(getUser());
+      navigate("/");
     } catch (error) {
       console.log(error);
       alert("The login failed");

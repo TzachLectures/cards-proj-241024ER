@@ -1,5 +1,5 @@
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 //Step1: create the context
 const ThemeContext = createContext();
@@ -27,6 +27,7 @@ export default function CustomThemeProvider({ children }) {
   );
 }
 
+//step 3 - custom hook
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) throw new Error("useTheme must be used within a Provider");
