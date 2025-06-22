@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BCards from "../cards/components/BCards";
 import axios from "axios";
 import { useSnack } from "../providers/SnackbarProvider";
@@ -9,13 +9,13 @@ function CardsPage() {
 
   const setSnack = useSnack();
 
-  const getCardsFromServer = async () => {
+  const getCardsFromServer = useCallback(async () => {
     const response = await axios.get(
       "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards"
     );
     setCards(response.data.slice(0, 10));
     setSnack("success", "All cards imported successfully");
-  };
+  }, [setSnack, setCards]);
 
   useEffect(() => {
     getCardsFromServer();
