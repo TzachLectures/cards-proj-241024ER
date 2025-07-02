@@ -1,11 +1,19 @@
-import { AppBar, Box, Button, Toolbar } from "@mui/material";
+import { AppBar, Box, Button, TextField, Toolbar } from "@mui/material";
 import HeaderLink from "./HeaderLink";
 import ROUTES from "../../routes/routesDict";
 import { useTheme } from "../../providers/CustomThemeProvider";
 import { useCurrentUser } from "../../users/providers/UserProvider";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 function Header() {
   const { toggleMode, isDark } = useTheme();
   const { user } = useCurrentUser();
+  const [query, setQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    setSearchParams({ q: query });
+  }, [query]);
 
   return (
     <AppBar position="sticky" color="primary" elevation={10}>
@@ -17,6 +25,11 @@ function Header() {
           <HeaderLink to={ROUTES.sandbox} label={"Sand box"} />
         </Box>
         <Box>
+          <TextField
+            placeHolder="Search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
           {user ? null : (
             <>
               <HeaderLink to={ROUTES.register} label={"Register"} />
