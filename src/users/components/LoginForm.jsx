@@ -11,6 +11,7 @@ import {
 } from "../services/localStorageService";
 import { useCurrentUser } from "../providers/UserProvider";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/usersApiService";
 
 function LoginForm() {
   const { setToken, setUser } = useCurrentUser();
@@ -18,10 +19,7 @@ function LoginForm() {
 
   const handleLogin = async (user) => {
     try {
-      const response = await axios.post(
-        "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/login",
-        user
-      );
+      const response = await login(user);
       console.log(response);
       setTokenInLocalStorage(response.data);
       setToken(response.data);

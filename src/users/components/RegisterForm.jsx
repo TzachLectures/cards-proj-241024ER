@@ -6,14 +6,12 @@ import axios from "axios";
 import signupSchema from "../models/signupSchema";
 import initialSignupForm from "../helpers/initialForms/initialSignupForm";
 import normalizeUser from "../helpers/normalization/normalizeUser";
+import { registerUser } from "../services/usersApiService";
 
 const handleSignup = async (userDetails) => {
   const userDetailsForServer = normalizeUser(userDetails);
   try {
-    const response = await axios.post(
-      "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users",
-      userDetailsForServer
-    );
+    const response = await registerUser(userDetailsForServer);
     console.log(response);
   } catch (error) {
     console.log(error);

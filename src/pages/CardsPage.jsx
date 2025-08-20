@@ -10,9 +10,7 @@ function CardsPage() {
   const setSnack = useSnack();
 
   const getCardsFromServer = useCallback(async () => {
-    const response = await axios.get(
-      "https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards"
-    );
+    const response = await axios.get("http://localhost:3000/cards");
     setCards(response.data.slice(0, 10));
     setSnack("success", "All cards imported successfully");
   }, [setSnack, setCards]);
