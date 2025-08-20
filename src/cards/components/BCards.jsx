@@ -1,7 +1,23 @@
+import { useState } from "react";
 import BCard from "./BCard";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Pagination } from "@mui/material";
 
-function BCards({ cards }) {
+const CARDS_PER_PAGE = 8;
+
+function BCards({ cards, toggleLike }) {
+  const [page, setPage] = useState(1);
+
+  const handleChange = (_, value) => {
+    setPage(value);
+  };
+
+  const pageCount = Math.ceil(cards.length / CARDS_PER_PAGE);
+
+  const paginatedCards = cards.slice(
+    (page - 1) * CARDS_PER_PAGE,
+    page * CARDS_PER_PAGE
+  );
+
   if (cards.length === 0) {
     return (
       <Box>
@@ -9,11 +25,17 @@ function BCards({ cards }) {
       </Box>
     );
   }
+
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap" }}>
-      {cards.map((card) => (
-        <BCard key={card._id} card={card} />
-      ))}
+    <Box>
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+        {paginatedCards.map((card) => (
+          <BCard key={card._id} card={card} toggleLike={toggleLike} />
+        ))}
+      </Box>
+      <Box sx={{ mt: 3, display: "flex", justifyContent: "center" }}>
+        <Pagination count={pageCount} page={page} onChange={handleChange} />
+      </Box>
     </Box>
   );
 }

@@ -1,4 +1,5 @@
 import { CardContent, Divider, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 function BCardBody({ title, subtitle, phone, city, bizNumber }) {
   return (
@@ -16,5 +17,13 @@ function BCardBody({ title, subtitle, phone, city, bizNumber }) {
     </CardContent>
   );
 }
+
+BCardBody.propTypes = {
+  title: PropTypes.string.isRequired,
+  subtitle: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
+  city: PropTypes.string.isRequired,
+  bizNumber: PropTypes.string.isRequired,
+};
 
 export default BCardBody;
